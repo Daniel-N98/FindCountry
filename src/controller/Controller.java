@@ -9,7 +9,7 @@ public class Controller {
 
     private final InputReader reader;
     private boolean finished;
-    private CountryCountroller countryCountroller;
+    private final CountryCountroller countryCountroller;
 
     public Controller(CountryCountroller countryCountroller) {
         // Starts the program by first printing a menu to the user via console
@@ -36,9 +36,7 @@ public class Controller {
             switchUserOption(userOption);
         } catch (NumberFormatException e) {
             System.out.println("You must enter a digit value.");
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (URISyntaxException e) {
+        } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
         }
     }
@@ -51,7 +49,7 @@ public class Controller {
         switch (option) {
             case 1 -> countryCountroller.printCountries(null);
             case 2 -> countryCountroller.printCountries(reader.getNextText("> Enter the country name"));
-            case 3 -> finished = false;
+            case 3 -> finished = true;
         }
     }
 }
