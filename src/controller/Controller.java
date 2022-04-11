@@ -14,7 +14,6 @@ public class Controller {
     public Controller(CountryCountroller countryCountroller) {
         // Starts the program by first printing a menu to the user via console
         this.reader = new InputReader();
-        System.out.println("Nice");
         this.finished = false;
         this.countryCountroller = countryCountroller;
 
