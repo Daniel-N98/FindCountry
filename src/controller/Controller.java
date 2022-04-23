@@ -2,9 +2,6 @@ package controller;
 
 import utils.InputReader;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
-
 public class Controller {
 
     private final InputReader reader;
@@ -22,33 +19,34 @@ public class Controller {
         }
     }
 
+    /**
+     * Prints out the Menu for the application
+     */
     private void printMenu() {
-        print("-----------------------------------");
-        print("");
-        print("  1 - View all countries");
-        print("  2 - Search for a country");
-        print("  3 - Quit program");
-        print("");
-        print("-----------------------------------");
-
+        String menu = """
+                -----------------------------------
+                1 - View all countries
+                2 - Search for a country
+                3 - Quit program
+                -----------------------------------
+                """;
+        System.out.println(menu);
         try {
-            int userOption = reader.getNextInt("Enter an option from the menu");
-            switchUserOption(userOption);
+            int userOption = reader.getNextInt("Enter an option from the menu"); // Request an integer from the user
+            switchUserOption(userOption); // Select the correct option based on user input
         } catch (NumberFormatException e) {
             System.out.println("You must enter a digit value.");
-        } catch (IOException | URISyntaxException e) {
-            e.printStackTrace();
         }
     }
 
-    public static void print(String toPrint) {
-        System.out.println(toPrint);
-    }
-
-    private void switchUserOption(int option) throws IOException, URISyntaxException {
+    /**
+     * Select the correct method call for the user input parameter
+     * @param option user input
+     */
+    private void switchUserOption(int option) {
         switch (option) {
-            case 1 -> countryController.printCountries(null);
-            case 2 -> countryController.printCountries(reader.getNextText("> Enter the country name"));
+            case 1 -> countryController.printCountries(null); // Prints all countries
+            case 2 -> countryController.printCountries(reader.getNextText("> Enter the country name")); // Prints a specific country
             case 3 -> finished = true;
         }
     }
