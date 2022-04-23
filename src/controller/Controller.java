@@ -9,13 +9,13 @@ public class Controller {
 
     private final InputReader reader;
     private boolean finished;
-    private final CountryCountroller countryCountroller;
+    private final CountryController countryController;
 
-    public Controller(CountryCountroller countryCountroller) {
+    public Controller(CountryController countryController) {
         // Starts the program by first printing a menu to the user via console
         this.reader = new InputReader();
         this.finished = false;
-        this.countryCountroller = countryCountroller;
+        this.countryController = countryController;
 
         while (!finished) {
             printMenu();
@@ -47,8 +47,8 @@ public class Controller {
 
     private void switchUserOption(int option) throws IOException, URISyntaxException {
         switch (option) {
-            case 1 -> countryCountroller.printCountries(null);
-            case 2 -> countryCountroller.printCountries(reader.getNextText("> Enter the country name"));
+            case 1 -> countryController.printCountries(null);
+            case 2 -> countryController.printCountries(reader.getNextText("> Enter the country name"));
             case 3 -> finished = true;
         }
     }

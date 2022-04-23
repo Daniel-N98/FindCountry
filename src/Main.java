@@ -1,10 +1,10 @@
 import controller.Controller;
-import controller.CountryCountroller;
+import controller.CountryController;
 
 public class Main {
 
 
     public static void main(String[] args) throws Exception {
-        new Controller(new CountryCountroller());
+        new Controller(new CountryController());
     }
 }

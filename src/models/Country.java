@@ -9,10 +9,10 @@ import lombok.Setter;
 @Setter
 public class Country {
 
-    private String name, code, longitude, latitude;
+    private String name, code, latitude, longitude;
 
     public void printCountry(){
-        System.out.printf("%4s %16s %16s %13s", code, longitude, longitude, name);
+        System.out.printf("%4s %16s %16s %45s", code, latitude, longitude, name);
         System.out.println();
     }
 }
