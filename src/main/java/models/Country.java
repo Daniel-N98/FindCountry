@@ -18,7 +18,7 @@ public class Country {
     /**
      * Prints out a nicely formatted Country
      */
-    public void print() {
+    public void print(){
         System.out.printf("%4s %16s %16s %45s", code, latitude, longitude, name);
         System.out.println();
     }
@@ -30,7 +30,7 @@ public class Country {
      * @return URI created from Country details
      * @throws CountryURIInvalidException if the URI could not be created
      */
-    public URI getURI() throws CountryURIInvalidException {
+    public URI getURI()throws CountryURIInvalidException{
         try {
             return new URI(("https://google.co.uk/maps/@" + this.getLatitude() + "," + this.getLongitude() + ",7z"));
         } catch (URISyntaxException e) {
