@@ -2,6 +2,7 @@ package controller;
 
 
 import exceptions.CountryNotFoundException;
+import exceptions.CountryURIInvalidException;
 import models.Country;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -21,11 +22,11 @@ public class CountryController {
     /**
      * Constructor for the CountryController class
      */
-    public CountryController(){
+    public CountryController() {
         this.countries = new HashMap<>();
         try {
             connect(); // Attempt to connect and pull the csv data
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -53,6 +54,7 @@ public class CountryController {
     /**
      * Add a new Country entry to the map.
      * String[0 = Country code, 1 = Latitude, 2 = Longitude, 3 = Country name]
+     *
      * @param data next line from the reader
      */
     private void addToMap(String data) {
@@ -70,7 +72,7 @@ public class CountryController {
 
             // Create a TreeMap from the HashMap to sort it alphabetically
             TreeMap<String, Country> sortedCountries = new TreeMap<>(countries);
-            sortedCountries.values().forEach(Country::printCountry); // Prints out each country
+            sortedCountries.values().forEach(Country::print); // Prints out each country
         } else {
             searchCountry(name); // Searches for a specific country and opens it via Google Maps if found
         }
@@ -79,12 +81,13 @@ public class CountryController {
 
     /**
      * Searches for and opens a specific Country in Google Maps in a new browser tab
+     *
      * @param name Country name | Country to search for
      */
-    private void searchCountry(String name){
+    private void searchCountry(String name) {
         try {
             Country country = getCountryByNameOrCode(name); // Searches the HashMap for a Country with this name or code
-            country.printCountry(); // Prints the country found
+            country.print(); // Prints the country found
             System.out.println("\nOpening '" + country.getName() + "," + country.getCode() + "' via Google maps\n");
 
             /* Opens a new browser tab at the specific web page (Google Maps).
@@ -92,8 +95,14 @@ public class CountryController {
              * So we can easily open Google Maps at a specific location as long as we have the Latitude and Longitude
              * Below, we add the Latitude, Longitude, and "7z" which represents the zoom amount.
              */
-            Desktop.getDesktop().browse(new URI(("https://google.co.uk/maps/@" + country.getLatitude() + "," + country.getLongitude() + ",7z")));
-        }catch (CountryNotFoundException | URISyntaxException | IOException e){
+            try {
+                // Country was found and instantiated, attempt to retrieve the URI
+                Desktop.getDesktop().browse(country.getURI());
+            } catch (CountryURIInvalidException | IOException e) {
+                e.printStackTrace();
+            }
+
+        } catch (CountryNotFoundException e) {
             e.printStackTrace();
         }
     }
@@ -106,9 +115,9 @@ public class CountryController {
      * @throws CountryNotFoundException if no country exists with that name or code
      */
     private Country getCountryByNameOrCode(String countryNameOrCode) throws CountryNotFoundException {
-        for (Country country : countries.values()){
+        for (Country country : countries.values()) {
             // Checks if the Country name, or code is equal to the parameter (Not case-sensitive)
-            if (country.getName().equalsIgnoreCase(countryNameOrCode) || country.getCode().equalsIgnoreCase(countryNameOrCode)){
+            if (country.getName().equalsIgnoreCase(countryNameOrCode) || country.getCode().equalsIgnoreCase(countryNameOrCode)) {
                 return country;
             }
         }
@@ -120,7 +129,7 @@ public class CountryController {
      * Prints out a nicely formatted header for displaying results
      */
     private void printHeader() {
-        System.out.println("-".repeat(85));
+        System.out.println("-".repeat(85)); // Repeats the '-' symbol 85 times
         System.out.printf("%5s %15s %15s %45s", "CODE", "LATITUDE", "LONGITUDE", "COUNTRY NAME");
         System.out.println();
         System.out.println("-".repeat(85));

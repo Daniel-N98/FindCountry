@@ -42,6 +42,7 @@ public class Controller {
 
     /**
      * Select the correct method call for the user input parameter
+     *
      * @param option user input
      */
     private void switchUserOption(int option) {

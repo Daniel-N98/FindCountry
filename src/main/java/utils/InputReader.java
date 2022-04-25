@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class InputReader {
     private final Scanner reader;
 
-    public InputReader(){
+    public InputReader() {
         this.reader = new Scanner(System.in);
     }
 
@@ -17,12 +17,12 @@ public class InputReader {
      * @return int next integer
      * @throws NumberFormatException if a non-int value is provided
      */
-    public int getNextInt(String printMessage) throws NumberFormatException{
+    public int getNextInt(String printMessage) throws NumberFormatException {
         System.out.println(printMessage);
         try {
             // Parses the next String as an Integer
             return Integer.parseInt(reader.next());
-        }catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             throw new NumberFormatException();
         }
     }
@@ -34,7 +34,7 @@ public class InputReader {
      * @param printMessage to be printed to console
      * @return string next input
      */
-    public String getNextText(String printMessage){
+    public String getNextText(String printMessage) {
         System.out.println(printMessage);
         return reader.next();
     }

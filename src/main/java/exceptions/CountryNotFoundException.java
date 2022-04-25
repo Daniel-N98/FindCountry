@@ -1,8 +1,8 @@
 package exceptions;
 
-public class CountryNotFoundException extends Exception{
+public class CountryNotFoundException extends Exception {
 
-    public CountryNotFoundException(String message){
+    public CountryNotFoundException(String message) {
         super(message);
     }
 }
