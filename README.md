@@ -13,5 +13,5 @@ A simple Country search tool built with Java.
 To get started using this program, do the following
 - Clone the project
 - Open the project in an IDE and add JDK
-- Run the Main.java class
+- Run the main.Main.java class
 - Follow the on screen prompts

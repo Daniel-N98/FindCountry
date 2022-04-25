@@ -1,5 +1,6 @@
 package controller;
 
+
 import utils.InputReader;
 
 public class Controller {
